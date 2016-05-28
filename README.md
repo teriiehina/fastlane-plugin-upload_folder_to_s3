@@ -1,6 +1,6 @@
-# fastlane-plugin-upload_folder_to_s3 `fastlane` Plugin
+# upload_folder_to_s3 `fastlane` Plugin
 
-[![Gem](assets/plugin-badge.svg)](https://rubygems.org/gems/upload_folder_to_s3)
+[![Gem](assets/plugin-badge.svg)](https://rubygems.org/gems/fastlane-plugin-upload_folder_to_s3)
 
 ## Getting Started
 
