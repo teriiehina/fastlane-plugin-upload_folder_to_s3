@@ -13,7 +13,7 @@ fastlane add_plugin upload_folder_to_s3
 
 ## About upload_folder_to_s3
 
-Upload a folder to S3
+This action for `fastlane` will upload a folder (and all its content) to a S3 bucket.
 
 ## Issues and Feedback
 
