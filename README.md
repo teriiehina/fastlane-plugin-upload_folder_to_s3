@@ -21,7 +21,7 @@ For any other issues and feedback about this plugin, please submit it to this re
 
 ## Troubleshooting
 
-For some , check out the [Plugins Troubleshooting](https://github.com/fastlane/fastlane/blob/master/fastlane/docs/PluginsTroubleshooting.md) doc in the main `fastlane` repo.
+For some help, check out the [Plugins Troubleshooting](https://github.com/fastlane/fastlane/blob/master/fastlane/docs/PluginsTroubleshooting.md) doc in the main `fastlane` repo.
 
 ## Using `fastlane` Plugins
 
