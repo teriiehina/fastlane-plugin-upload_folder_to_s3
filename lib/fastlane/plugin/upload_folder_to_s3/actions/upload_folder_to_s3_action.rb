@@ -66,8 +66,14 @@ module Fastlane
       end
 
       def self.valid_s3(awscreds, s3_bucket)
-        Actions.verify_gem!('aws-sdk')
-        require 'aws-sdk'
+        loaded_original_gem = load_from_original_gem_name
+
+        if !loaded_original_gem || !v1_sdk_module_present?
+          load_from_v1_gem_name
+          UI.verbose("Loaded AWS SDK v1.x from the `aws-sdk-v1` gem")
+        else
+          UI.verbose("Loaded AWS SDK v1.x from the `aws-sdk` gem")
+        end
 
         s3 = AWS::S3.new(awscreds)
 
@@ -76,6 +82,37 @@ module Fastlane
         end
 
         s3
+      end
+
+      def self.load_from_original_gem_name
+        begin
+          Gem::Specification.find_by_name('aws-sdk')
+          require 'aws-sdk'
+        rescue Gem::LoadError => e
+          UI.verbose("The 'aws-sdk' gem is not present")
+          return false
+        end
+        
+        UI.verbose("The 'aws-sdk' gem is present")
+        true
+      end
+
+      def self.load_from_v1_gem_name
+        Actions.verify_gem!('aws-sdk-v1')
+        require 'aws-sdk-v1'
+      end
+
+      def self.v1_sdk_module_present?
+        begin
+          # Here we'll make sure that the `AWS` module is defined. If it is, the gem is the v1.x API.
+          Object.const_get("AWS")
+        rescue NameError
+          UI.verbose("Couldn't find the needed `AWS` module in the 'aws-sdk' gem")
+          return false
+        end
+
+        UI.verbose("Found the needed `AWS` module in the 'aws-sdk' gem")
+        true
       end
 
       def self.valid_bucket(awscreds, s3_bucket)
