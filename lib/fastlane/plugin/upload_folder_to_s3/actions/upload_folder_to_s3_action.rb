@@ -204,7 +204,7 @@ module Fastlane
       end
 
       def self.content_type_for_file(file)
-        require 'mime/types'
+        require "mime/types"
 
         mime_type = MIME::Types.type_for(file).first
 
