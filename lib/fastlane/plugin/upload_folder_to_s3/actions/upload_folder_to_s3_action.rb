@@ -204,23 +204,13 @@ module Fastlane
       end
 
       def self.content_type_for_file(file)
-        file_extension = File.extname(file)
+        require "mime/types"
 
-        extensions_to_type = {
-          ".html" => "text/html",
-          ".png"  => "image/png",
-          ".jpg"  => "text/jpeg",
-          ".gif"  => "image/gif",
-          ".log"  => "text/plain",
-          ".css"  => "text/css",
-          ".js"   => "application/javascript"
-        }
+        mime_type = MIME::Types.type_for(file).first
 
-        if extensions_to_type[file_extension].nil?
-          "application/octet-stream"
-        else
-          extensions_to_type[file_extension]
-        end
+        return "application/octet-stream" if mime_type.nil?
+
+        mime_type.content_type
       end
 
       @no_access_key_id_error_message     = "No Access key ID for upload_folder_to_s3 given, pass using `access_key_id: 'key_id'`"
